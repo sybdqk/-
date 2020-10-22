@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        div {
+            float: left;
+        }
+        
+        .d1 {
+            position: relative;
+            margin: 100px 50px;
+            width: 600px;
+            height: 500px;
+            border-style: inset;
+            border-width: 1px;
+        }
+        
+        .img1 {
+            position: absolute;
+            width: 360px;
+            height: 210px;
+            top: 136px;
+            left: 116px;
+        }
+        
+        .li {
+            list-style: none;
+            width: 458px;
+            height: 300px;
+        }
+        
+        .a {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            width: 300px;
+            height: 300px;
+            background-color: #e5ff00;
+            opacity: .5;
+            cursor: move;
+            display: none;
+        }
+        
+        .img2 {
+            width: 600px;
+            height: 500px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .d2 {
+            width: 680px;
+            height: 550px;
+            border-style: inset;
+            border-width: 1px;
+            top: 0;
+            left: 661px;
+            overflow: hidden;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d1">
+        <li class="li">
+            <img src="3.png" alt="" class="img1">
+        </li>
+        <li class="a"></li>
+
+        <div class="d2">
+            <img src="3.png" alt="" class="img2">
+        </div>
+    </div>
+
+
+    <script>
+        img1 = document.querySelector('.img1');
+        d1 = document.querySelector('.d1');
+        a = document.querySelector('.a');
+        d2 = document.querySelector('.d2');
+        img2 = document.querySelector('.img2');
+        d1.addEventListener('mousemove', function() {
+            a.style.display = 'block';
+            d2.style.display = 'block';
+        })
+        d1.addEventListener('mouseleave', function() {
+            a.style.display = 'none';
+            d2.style.display = 'none';
+        })
+        d1.addEventListener('mousemove', function(e) {
+
+            var x = e.pageX - this.offsetLeft;
+            var y = e.pageY - this.offsetTop;
+            var ax = x - a.offsetWidth / 2;
+            var ay = y - a.offsetHeight / 2;
+            var axx = this.offsetWidth - a.offsetWidth;
+            var ayy = this.offsetHeight - a.offsetHeight;
+            if (ax <= 0) {
+                ax = 0;
+            } else if (ax >= axx) {
+                ax = axx;
+            }
+            if (ay <= 0) {
+                ay = 0;
+            } else if (ay >= ayy) {
+                ay = ayy;
+            }
+            a.style.left = ax + 'px';
+            a.style.top = ay + 'px';
+
+            img2.style.left = -ax * (d2.offsetWidth - img2.offsetWidth) / axx + 'px';
+            img2.style.top = -ay * (d2.offsetHeight - img2.offsetHeight) / ayy + 'px';
+        })
+    </script>
+</body>
+
+</html>
